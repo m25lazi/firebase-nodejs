@@ -33,17 +33,22 @@ app.use(function(req, res, next){
 
 
 app.get('/api/read', function (req, res) {
-    var rootRef = new firebase('https://docs-examples.firebaseio.com/web/data');
+    var rootRef = new firebase('https://connect-them-rnd.firebaseio.com');
     
-    var session = new Session();
-    session.verify(req.cookies.session, function(success){
-        if(success){
-            res.end(JSON.stringify({ "userId" : session.user }));
+    function authHandler(error, authData) {
+        if (error) {
+            console.log("Login Failed!", error);
+            res.end(JSON.stringify(error));
+        } else {
+            console.log("Authenticated successfully with payload:", authData);
+            res.end(JSON.stringify(authData));
         }
-        else{
-            res.clearCookie('session');
-            res.end(JSON.stringify({"error" : { "code" : 103 , "message" : "Invalid Session"}}));
-        }
-    });
+    }
+    
+    ref.authWithPassword({
+        email    : 'm25lazi@gmail.com',
+        password : 'm25lazi'
+    }, authHandler);
+    
 });
 
