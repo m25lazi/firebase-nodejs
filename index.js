@@ -33,6 +33,7 @@ app.use(function(req, res, next){
 
 
 app.get('/api/read', function (req, res) {
+    console.log("GOT API READ");
     var ref = new firebase('https://connect-them-rnd.firebaseio.com');
     
     function authHandler(error, authData) {
@@ -52,3 +53,35 @@ app.get('/api/read', function (req, res) {
     
 });
 
+/*
+GENERATE TOKEN
+var tokenGenerator = new FirebaseTokenGenerator("<YOUR_FIREBASE_SECRET>");
+var token = tokenGenerator.createToken({uid: "1", some: "arbitrary", data: "here"});
+
+
+AUTH CALLBACK
+function authHandler(error, authData) {
+  if (error) {
+    console.log("Login Failed!", error);
+  } else {
+    console.log("Authenticated successfully with payload:", authData);
+  }
+}
+
+TOKEN AUTH
+ref.authWithCustomToken("<token>", authHandler);
+
+ANONYMOUS AUTH
+ref.authAnonymously(authHandler);
+
+PASSWORD AUTH
+ref.authWithPassword({
+  email    : 'bobtony@firebase.com',
+  password : 'correcthorsebatterystaple'
+}, authHandler);
+
+OAUTH - providers ("facebook", "github", "google", or "twitter")
+ref.authWithOAuthPopup("<provider>", authHandler);
+ref.authWithOAuthRedirect("<provider>", authHandler);
+
+*/
