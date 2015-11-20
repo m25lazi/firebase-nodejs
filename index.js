@@ -5,6 +5,7 @@ global.appRoot = path.resolve(__dirname);
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var firebase = require("firebase");
 
 var app = express();
 var port_number = process.env.PORT || 3000;
