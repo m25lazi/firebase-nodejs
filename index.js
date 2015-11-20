@@ -53,7 +53,7 @@ app.get('/api/read', function (req, res) {
     
 });
 
-app.get('/api/read/token', function (req, res) {
+app.get('/api/read/gmail', function (req, res) {
     console.log("GOT API READ");
     var ref = new firebase('https://connect-them-rnd.firebaseio.com/newdata');
     
@@ -75,6 +75,32 @@ app.get('/api/read/token', function (req, res) {
     }
     
     ref.authWithCustomToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2IjowLCJkIjp7InByb3ZpZGVyIjoicGFzc3dvcmQiLCJ1aWQiOiIwYjFhNjg1My03NGZhLTRlOGQtODQwOC0zZjdlMmMzMTY0NzYifSwiaWF0IjoxNDQ4MDM5NDk3fQ.zLXa7T7LIRdN11g9kytHNJSqEGSql6uzAnRTd5NHCtw', authHandler);
+    
+});
+
+
+app.get('/api/read/live', function (req, res) {
+    console.log("GOT API READ");
+    var ref = new firebase('https://connect-them-rnd.firebaseio.com/newdata');
+    
+    function authHandler(error, authData) {
+        if (error) {
+            console.log("Login Failed!", error);
+            res.end(JSON.stringify(error));
+        } else {
+            console.log("Authenticated successfully with payload:", authData);
+            ref.on("value", function(snapshot) {
+                console.log(snapshot.val());
+                res.end(JSON.stringify(snapshot.val()));
+            }, function (errorObject) {
+                console.log("The read failed: " + errorObject.code);
+                res.end(JSON.stringify(errorObject));
+            });
+            
+        }
+    }
+    
+    ref.authWithCustomToken('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2IjowLCJkIjp7InByb3ZpZGVyIjoicGFzc3dvcmQiLCJ1aWQiOiI5MWE0MjE4NS02YjNkLTQ3ZGMtYjhiZC0wNTRkMWQ3MzUwY2YifSwiaWF0IjoxNDQ4MDQwNzc2fQ.Pmwp_VLV-ip-21ybJrcHqXCXuF-bMRH5z8bV5uwqppc', authHandler);
     
 });
 
@@ -113,4 +139,6 @@ ref.authWithOAuthRedirect("<provider>", authHandler);
 gmail
 eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2IjowLCJkIjp7InByb3ZpZGVyIjoicGFzc3dvcmQiLCJ1aWQiOiIwYjFhNjg1My03NGZhLTRlOGQtODQwOC0zZjdlMmMzMTY0NzYifSwiaWF0IjoxNDQ4MDM5NDk3fQ.zLXa7T7LIRdN11g9kytHNJSqEGSql6uzAnRTd5NHCtw
 
+live
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2IjowLCJkIjp7InByb3ZpZGVyIjoicGFzc3dvcmQiLCJ1aWQiOiI5MWE0MjE4NS02YjNkLTQ3ZGMtYjhiZC0wNTRkMWQ3MzUwY2YifSwiaWF0IjoxNDQ4MDQwNzc2fQ.Pmwp_VLV-ip-21ybJrcHqXCXuF-bMRH5z8bV5uwqppc
 */
