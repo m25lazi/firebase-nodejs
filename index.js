@@ -33,7 +33,7 @@ app.use(function(req, res, next){
 
 
 app.get('/api/read', function (req, res) {
-    var rootRef = new firebase('https://connect-them-rnd.firebaseio.com');
+    var ref = new firebase('https://connect-them-rnd.firebaseio.com');
     
     function authHandler(error, authData) {
         if (error) {
