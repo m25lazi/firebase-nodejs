@@ -47,7 +47,7 @@ app.get('/api/read', function (req, res) {
     }
     
     ref.authWithPassword({
-        email    : 'm25lazi@gmail.com',
+        email    : 'm25lazi@live.com',
         password : 'm25lazi'
     }, authHandler);
     
@@ -55,7 +55,7 @@ app.get('/api/read', function (req, res) {
 
 app.get('/api/read/token', function (req, res) {
     console.log("GOT API READ");
-    var ref = new firebase('https://connect-them-rnd.firebaseio.com');
+    var ref = new firebase('https://connect-them-rnd.firebaseio.com/newdata');
     
     function authHandler(error, authData) {
         if (error) {
@@ -63,7 +63,14 @@ app.get('/api/read/token', function (req, res) {
             res.end(JSON.stringify(error));
         } else {
             console.log("Authenticated successfully with payload:", authData);
-            res.end(JSON.stringify(authData));
+            ref.on("value", function(snapshot) {
+                console.log(snapshot.val());
+                res.end(JSON.stringify(snapshot.val()));
+            }, function (errorObject) {
+                console.log("The read failed: " + errorObject.code);
+                res.end(JSON.stringify(errorObject));
+            });
+            
         }
     }
     
@@ -103,7 +110,7 @@ OAUTH - providers ("facebook", "github", "google", or "twitter")
 ref.authWithOAuthPopup("<provider>", authHandler);
 ref.authWithOAuthRedirect("<provider>", authHandler);
 
-
+gmail
 eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2IjowLCJkIjp7InByb3ZpZGVyIjoicGFzc3dvcmQiLCJ1aWQiOiIwYjFhNjg1My03NGZhLTRlOGQtODQwOC0zZjdlMmMzMTY0NzYifSwiaWF0IjoxNDQ4MDM5NDk3fQ.zLXa7T7LIRdN11g9kytHNJSqEGSql6uzAnRTd5NHCtw
 
 */
