@@ -6,6 +6,7 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var firebase = require("firebase");
+var firebaseTokenGenerator = require("firebase-token-generator");
 
 var app = express();
 var port_number = process.env.PORT || 3000;
