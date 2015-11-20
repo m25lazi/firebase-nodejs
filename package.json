@@ -1,0 +1,26 @@
+{
+  "name": "firebase-nodejs",
+  "version": "1.0.0",
+  "description": "Test FireBase Node APIs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m25lazi/firebase-nodejs.git"
+  },
+  "engines": {
+    "node": "4.1.1"
+  },
+  "keywords": [
+    "firebase",
+    "nodejs"
+  ],
+  "author": "m25lazi",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/m25lazi/firebase-nodejs/issues"
+  },
+  "homepage": "https://github.com/m25lazi/firebase-nodejs#readme"
+}
