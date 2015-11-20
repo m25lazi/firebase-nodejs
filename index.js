@@ -31,3 +31,19 @@ app.use(function(req, res, next){
     return next();
 });
 
+
+app.get('/api/read', function (req, res) {
+    var rootRef = new firebase('https://docs-examples.firebaseio.com/web/data');
+    
+    var session = new Session();
+    session.verify(req.cookies.session, function(success){
+        if(success){
+            res.end(JSON.stringify({ "userId" : session.user }));
+        }
+        else{
+            res.clearCookie('session');
+            res.end(JSON.stringify({"error" : { "code" : 103 , "message" : "Invalid Session"}}));
+        }
+    });
+});
+
