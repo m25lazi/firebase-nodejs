@@ -105,6 +105,35 @@ app.get('/api/read/live', function (req, res) {
 });
 
 
+app.get('/api/write', function (req, res) {
+    console.log("GOT API WRITE");
+    var ref = new firebase('https://connect-them-rnd.firebaseio.com/uno/1002');
+    
+    function onComplete(error) {
+        if (error) {
+            res.end(JSON.stringify(error));
+        } else {
+            res.end(JSON.stringify({status : 1}));
+        }
+    }
+    
+    ref.set(25, onComplete);
+    
+});
+
+app.get('/api/query', function (req, res) {
+    console.log("GOT API QUERY");
+    var ref = new firebase('https://connect-them-rnd.firebaseio.com/uno');
+    ref.orderByKey().startAt('1001').once('value', function(snapshot){
+        res.end(JSON.stringify(snapshot.val()));
+    });
+    
+});
+
+
+
+
+
 /*
 GENERATE TOKEN
 var tokenGenerator = new FirebaseTokenGenerator("<YOUR_FIREBASE_SECRET>");
